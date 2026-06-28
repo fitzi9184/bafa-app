@@ -15,10 +15,6 @@
   #form {
     display: none;
   }
-
-  #adresseBlock {
-    display: none;
-  }
 </style>
 
 </head>
@@ -27,23 +23,19 @@
 
 <h1>Kundendatenerfassung für BAFA Fördermittel</h1>
 
-<!-- STEP 1 -->
+<!-- AUSWAHL -->
 <p>
 <b>Welche Maßnahme soll durchgeführt werden?</b><br><br>
 
-<select id="massnahme">
+<select id="massnahme" onchange="showForm()">
   <option value="">Bitte auswählen</option>
-  <option value="Fenster">Fenster</option>
-  <option value="Dämmung">Dämmung</option>
-  <option value="Dach">Dach</option>
+  <option>Fenster und Türen erneuern</option>
+  <option>Fassade dämmen</option>
+  <option>Dach und oberste Geschossdecke dämmen</option>
 </select>
-
-<br><br>
-
-<button onclick="showForm()">Weiter</button>
 </p>
 
-<!-- STEP 2 -->
+<!-- FORMULAR -->
 <form id="form" onsubmit="return false;">
 
 <h2>Kundendaten</h2>
@@ -60,12 +52,15 @@
 
 <br><br>
 
-<button type="button" onclick="nextStep()">
-  Weiter
-</button>
+<label>E-Mail:<br>
+<input type="email" id="email">
+</label>
 
-<!-- STEP 3 -->
-<div id="adresseBlock">
+<br><br>
+
+<label>Telefonnummer:<br>
+<input type="text" id="telefon">
+</label>
 
 <h2>Adresse</h2>
 
@@ -93,55 +88,51 @@
 
 <br><br>
 
-<button type="button" onclick="nextAdresse()">
+<button type="button" onclick="submitData()">
   Weiter
 </button>
-
-</div>
 
 </form>
 
 <!-- SCRIPT -->
 <script>
 
-// STEP 1 → Formular anzeigen
+// Formular anzeigen, sobald Maßnahme gewählt wird
 function showForm() {
   var value = document.getElementById("massnahme").value;
 
-  if (value === "") {
-    alert("Bitte zuerst eine Maßnahme auswählen");
-    return;
+  if (value !== "") {
+    document.getElementById("form").style.display = "block";
   }
-
-  document.getElementById("form").style.display = "block";
 }
 
-// STEP 2 → Name prüfen → Adresse anzeigen
-function nextStep() {
+// Eingaben prüfen
+function submitData() {
+
   var vorname = document.getElementById("vorname").value;
   var nachname = document.getElementById("nachname").value;
-
-  if (vorname === "" || nachname === "") {
-    alert("Bitte Vor- und Nachnamen eingeben");
-    return;
-  }
-
-  document.getElementById("adresseBlock").style.display = "block";
-}
-
-// STEP 3 → Adresse prüfen
-function nextAdresse() {
+  var email = document.getElementById("email").value;
+  var telefon = document.getElementById("telefon").value;
   var strasse = document.getElementById("strasse").value;
   var hausnummer = document.getElementById("hausnummer").value;
   var plz = document.getElementById("plz").value;
   var ort = document.getElementById("ort").value;
 
-  if (strasse === "" || hausnummer === "" || plz === "" || ort === "") {
-    alert("Bitte Adresse vollständig ausfüllen");
+  if (
+    vorname === "" ||
+    nachname === "" ||
+    email === "" ||
+    telefon === "" ||
+    strasse === "" ||
+    hausnummer === "" ||
+    plz === "" ||
+    ort === ""
+  ) {
+    alert("Bitte alle Felder ausfüllen");
     return;
   }
 
-  alert("Adresse gespeichert ✅ Nächster Schritt: Gebäudedaten");
+  alert("Danke " + vorname + " " + nachname + "! Daten wurden erfasst ✅");
 }
 
 </script>

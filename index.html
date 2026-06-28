@@ -1,49 +1,151 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>BAFA Förderantrag</title>
+<meta charset="UTF-8">
+<title>BAFA Antrag</title>
+
+<style>
+  body { font-family: Arial; max-width: 600px; margin: auto; }
+  .hidden { display: none; }
+</style>
+
+<script>
+function showForm() {
+  var value = document.getElementById("massnahme").value;
+
+  document.getElementById("form").classList.remove("hidden");
+
+  // Alle Bereiche verstecken
+  document.getElementById("fenster").classList.add("hidden");
+  document.getElementById("daemmung").classList.add("hidden");
+  document.getElementById("dach").classList.add("hidden");
+
+  // Passenden Bereich anzeigen
+  if (value === "Fenster") {
+    document.getElementById("fenster").classList.remove("hidden");
+  }
+  if (value === "Dämmung") {
+    document.getElementById("daemmung").classList.remove("hidden");
+  }
+  if (value === "Dach") {
+    document.getElementById("dach").classList.remove("hidden");
+  }
+}
+</script>
+
 </head>
 
 <body>
-  <h1>BAFA Förderantrag</h1>
 
-  <form name="bafa-form" method="POST" data-netlify="true">
-    
-    <input type="hidden" name="form-name" value="bafa-form">
+<h1>BAFA Förderantrag</h1>
 
-    <p>
-      <label>Name:<br>
-        <input type="text" name="name" required>
-      </label>
-    </p>
+<!-- Schritt 1 -->
+<p>
+<label>Welche Maßnahme soll durchgeführt werden?</label><br>
+<select id="massnahme" onchange="showForm()">
+  <option value="">Bitte auswählen</option>
+  <option>Fenster</option>
+  <option>Dämmung</option>
+  <option>Dach</option>
+  <option>Sonstiges</option>
+</select>
+</p>
 
-    <p>
-      <label>Email:<br>
-        <input type="email" name="email" required>
-      </label>
-    </p>
+<!-- Formular -->
+<form name="bafa-form" method="POST" data-netlify="true" class="hidden" id="form">
 
-    <p>
-      <label>Adresse:<br>
-        <input type="text" name="adresse">
-      </label>
-    </p>
+<input type="hidden" name="form-name" value="bafa-form">
 
-    <p>
-      <label>Maßnahme:<br>
-        <select name="massnahme">
-          <option>Fenster</option>
-          <option>Heizung</option>
-          <option>Dämmung</option>
-        </select>
-      </label>
-    </p>
+<h2>Kundendaten</h2>
 
-    <p>
-      <button type="submit">Absenden</button>
-    </p>
+<p>
+<label>Name:<br>
+<input type="text" name="name" required>
+</label>
+</p>
 
-  </form>
+<p>
+<label>Email:<br>
+<input type="email" name="email" required>
+</label>
+</p>
+
+<p>
+<label>Telefon:<br>
+<input type="text" name="telefon">
+</label>
+</p>
+
+<p>
+<label>Adresse:<br>
+<input type="text" name="adresse">
+</label>
+</p>
+
+<h2>Gebäude</h2>
+
+<p>
+<label>Gebäudetyp:<br>
+<input type="text" name="gebaeudetyp">
+</label>
+</p>
+
+<p>
+<label>Baujahr:<br>
+<input type="number" name="baujahr">
+</label>
+</p>
+
+<p>
+<label>Anzahl Wohneinheiten:<br>
+<input type="number" name="wohneinheiten">
+</label>
+</p>
+
+<!-- Fenster -->
+<div id="fenster" class="hidden">
+<h2>Fenster</h2>
+
+<p>
+<label>Anzahl Fenster:<br>
+<input type="number" name="fenster_anzahl">
+</label>
+</p>
+
+<p>
+<label>Kosten geschätzt (€):<br>
+<input type="number" name="kosten_fenster">
+</label>
+</p>
+</div>
+
+<!-- Dämmung -->
+<div id="daemmung" class="hidden">
+<h2>Dämmung</h2>
+
+<p>
+<label>Fläche (m²):<br>
+<input type="number" name="flaeche_daemmung">
+</label>
+</p>
+</div>
+
+<!-- Dach -->
+<div id="dach" class="hidden">
+<h2>Dach</h2>
+
+<p>
+<label>Dachfläche (m²):<br>
+<input type="number" name="dachflaeche">
+</label>
+</p>
+</div>
+
+<p>
+<button type="submit">Absenden</button>
+</p>
+
+</form>
+
 </body>
 </html>

@@ -49,7 +49,7 @@ ${data.gebaeude.betroffen}
 `;
 
     await sgMail.send({
-      to: "DEINE_EMAIL@HIER.EINTRAGEN",
+      to: "michaelfitzner@outlook.com",
       from: "noreply@deine-domain.de",
       subject: "Neuer BAFA Kunde",
       text: message

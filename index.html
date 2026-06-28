@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>BAFA Förderantrag</title>
+</head>
+
+<body>
+  <h1>BAFA Förderantrag</h1>
+
+  <form name="bafa-form" method="POST" data-netlify="true">
+    
+    <input type="hidden" name="form-name" value="bafa-form">
+
+    <p>
+      <label>Name:<br>
+        <input type="text" name="name" required>
+      </label>
+    </p>
+
+    <p>
+      <label>Email:<br>
+        <input type="email" name="email" required>
+      </label>
+    </p>
+
+    <p>
+      <label>Adresse:<br>
+        <input type="text" name="adresse">
+      </label>
+    </p>
+
+    <p>
+      <label>Maßnahme:<br>
+        <select name="massnahme">
+          <option>Fenster</option>
+          <option>Heizung</option>
+          <option>Dämmung</option>
+        </select>
+      </label>
+    </p>
+
+    <p>
+      <button type="submit">Absenden</button>
+    </p>
+
+  </form>
+</body>
+</html>

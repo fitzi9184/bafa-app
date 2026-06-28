@@ -8,11 +8,55 @@
 <style>
   body {
     font-family: Arial;
+    background-color: #f5f7fa;
+    padding: 20px;
+  }
+
+  .container {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
     max-width: 600px;
     margin: auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  h2 {
+    margin-top: 25px;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 10px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #0056b3;
   }
 
   #form {
+    display: none;
+  }
+
+  #gebaeudeBlock {
     display: none;
   }
 </style>
@@ -21,83 +65,103 @@
 
 <body>
 
+<div class="container">
+
 <h1>Kundendatenerfassung für BAFA Fördermittel</h1>
 
-<!-- AUSWAHL -->
-<p>
-<b>Welche Maßnahme soll durchgeführt werden?</b><br><br>
-
+<!-- STEP 1 -->
+<label><b>Welche Maßnahme soll durchgeführt werden?</b></label>
 <select id="massnahme" onchange="showForm()">
   <option value="">Bitte auswählen</option>
   <option>Fenster und Türen erneuern</option>
   <option>Fassade dämmen</option>
   <option>Dach und oberste Geschossdecke dämmen</option>
 </select>
-</p>
 
-<!-- FORMULAR -->
+<!-- STEP 2 -->
 <form id="form" onsubmit="return false;">
 
 <h2>Kundendaten</h2>
 
-<label>Vorname:<br>
+<label>Vorname:
 <input type="text" id="vorname">
 </label>
 
-<br><br>
-
-<label>Nachname:<br>
+<label>Nachname:
 <input type="text" id="nachname">
 </label>
 
-<br><br>
-
-<label>E-Mail:<br>
+<label>E-Mail:
 <input type="email" id="email">
 </label>
 
-<br><br>
-
-<label>Telefonnummer:<br>
+<label>Telefonnummer:
 <input type="text" id="telefon">
 </label>
 
 <h2>Adresse</h2>
 
-<label>Straße:<br>
+<label>Straße:
 <input type="text" id="strasse">
 </label>
 
-<br><br>
-
-<label>Hausnummer:<br>
+<label>Hausnummer:
 <input type="text" id="hausnummer">
 </label>
 
-<br><br>
-
-<label>PLZ:<br>
+<label>PLZ:
 <input type="text" id="plz">
 </label>
 
-<br><br>
-
-<label>Ort:<br>
+<label>Ort:
 <input type="text" id="ort">
 </label>
 
-<br><br>
-
-<button type="button" onclick="submitData()">
-  Weiter
+<button type="button" onclick="nextStep()">
+  Weiter zu Gebäudedaten
 </button>
 
 </form>
 
+<!-- STEP 3 -->
+<div id="gebaeudeBlock">
+
+<h2>Gebäudedaten</h2>
+
+<label>Gebäudetyp:
+<select id="gebaeudetyp">
+  <option value="">Bitte auswählen</option>
+  <option>Einfamilienhaus</option>
+  <option>Mehrfamilienhaus</option>
+  <option>Doppelhaushälfte</option>
+  <option>Reihenhaus</option>
+</select>
+</label>
+
+<label>Baujahr:
+<input type="number" id="baujahr">
+</label>
+
+<label>Anzahl Wohneinheiten:
+<input type="number" id="wohneinheiten">
+</label>
+
+<label>Betroffene Wohneinheiten:
+<input type="number" id="betroffene_wohneinheiten">
+</label>
+
+<button type="button" onclick="finishForm()">
+  Antrag abschließen
+</button>
+
+</div>
+
+</div>
+
 <!-- SCRIPT -->
 <script>
 
-// Formular anzeigen, sobald Maßnahme gewählt wird
+// Formular anzeigen
 function showForm() {
   var value = document.getElementById("massnahme").value;
 
@@ -106,8 +170,8 @@ function showForm() {
   }
 }
 
-// Eingaben prüfen
-function submitData() {
+// Schritt 2 → prüfen → Gebäudedaten anzeigen
+function nextStep() {
 
   var vorname = document.getElementById("vorname").value;
   var nachname = document.getElementById("nachname").value;
@@ -128,14 +192,29 @@ function submitData() {
     plz === "" ||
     ort === ""
   ) {
-    alert("Bitte alle Felder ausfüllen");
+    alert("Bitte alle Kundendaten ausfüllen");
     return;
   }
 
-  alert("Danke " + vorname + " " + nachname + "! Daten wurden erfasst ✅");
+  document.getElementById("gebaeudeBlock").style.display = "block";
+}
+
+// Abschluss
+function finishForm() {
+
+  var gebaeudetyp = document.getElementById("gebaeudetyp").value;
+  var baujahr = document.getElementById("baujahr").value;
+
+  if (gebaeudetyp === "" || baujahr === "") {
+    alert("Bitte Gebäudedaten ausfüllen");
+    return;
+  }
+
+  alert("✅ Antrag vollständig! Daten bereit zur Weiterverarbeitung.");
 }
 
 </script>
 
 </body>
+
 </html>

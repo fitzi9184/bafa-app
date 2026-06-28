@@ -21,31 +21,28 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
 
-  h1 {
-    text-align: center;
-  }
-
-  h2 {
-    margin-top: 25px;
-  }
+  h1 { text-align: center; }
+  h2 { margin-top: 25px; }
 
   input, select {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
 
   button {
     margin-top: 15px;
-    padding: 10px;
+    padding: 12px;
     background: #007BFF;
     color: white;
     border: none;
     border-radius: 5px;
     width: 100%;
     cursor: pointer;
+    font-size: 16px;
   }
 
   button:hover {
@@ -56,7 +53,11 @@
     display: none;
   }
 
-  #gebaeudeBlock {
+  #mfhBlock {
+    display: none;
+  }
+
+  #investAdresse {
     display: none;
   }
 </style>
@@ -69,7 +70,7 @@
 
 <h1>Kundendatenerfassung für BAFA Fördermittel</h1>
 
-<!-- STEP 1 -->
+<!-- MAßNAHME -->
 <label><b>Welche Maßnahme soll durchgeführt werden?</b></label>
 <select id="massnahme" onchange="showForm()">
   <option value="">Bitte auswählen</option>
@@ -78,7 +79,7 @@
   <option>Dach und oberste Geschossdecke dämmen</option>
 </select>
 
-<!-- STEP 2 -->
+<!-- FORMULAR -->
 <form id="form" onsubmit="return false;">
 
 <h2>Kundendaten</h2>
@@ -99,7 +100,7 @@
 <input type="text" id="telefon">
 </label>
 
-<h2>Adresse</h2>
+<h2>Adresse (Wohnort)</h2>
 
 <label>Straße:
 <input type="text" id="strasse">
@@ -117,30 +118,55 @@
 <input type="text" id="ort">
 </label>
 
-<button type="button" onclick="nextStep()">
-  Weiter zu Gebäudedaten
-</button>
+<!-- INVESTITIONSOBJEKT -->
+<h2>Investitionsobjekt</h2>
 
-</form>
+<label>Entspricht die Adresse dem Wohnort?</label>
+<select id="sameAdresse" onchange="checkAdresse()">
+  <option value="">Bitte auswählen</option>
+  <option value="ja">Ja</option>
+  <option value="nein">Nein</option>
+</select>
 
-<!-- STEP 3 -->
-<div id="gebaeudeBlock">
+<div id="investAdresse">
 
+<label>Straße:
+<input type="text" id="i_strasse">
+</label>
+
+<label>Hausnummer:
+<input type="text" id="i_hausnummer">
+</label>
+
+<label>PLZ:
+<input type="text" id="i_plz">
+</label>
+
+<label>Ort:
+<input type="text" id="i_ort">
+</label>
+
+</div>
+
+<!-- GEBÄUDEDATEN -->
 <h2>Gebäudedaten</h2>
 
 <label>Gebäudetyp:
-<select id="gebaeudetyp">
+<select id="gebaeudetyp" onchange="checkGebaeude()">
   <option value="">Bitte auswählen</option>
-  <option>Einfamilienhaus</option>
-  <option>Mehrfamilienhaus</option>
-  <option>Doppelhaushälfte</option>
-  <option>Reihenhaus</option>
+  <option value="efh">Einfamilienhaus</option>
+  <option value="mfh">Mehrfamilienhaus</option>
+  <option value="efh">Doppelhaushälfte</option>
+  <option value="efh">Reihenhaus</option>
 </select>
 </label>
 
 <label>Baujahr:
 <input type="number" id="baujahr">
 </label>
+
+<!-- nur bei MFH -->
+<div id="mfhBlock">
 
 <label>Anzahl Wohneinheiten:
 <input type="number" id="wohneinheiten">
@@ -150,60 +176,56 @@
 <input type="number" id="betroffene_wohneinheiten">
 </label>
 
+</div>
+
 <button type="button" onclick="finishForm()">
   Antrag abschließen
 </button>
 
-</div>
+</form>
 
 </div>
 
-<!-- SCRIPT -->
 <script>
 
+// Formular anzeigen
 function showForm() {
-  var value = document.getElementById("massnahme").value;
-
-  if (value !== "") {
+  var v = document.getElementById("massnahme").value;
+  if (v !== "") {
     document.getElementById("form").style.display = "block";
   }
 }
 
-function nextStep() {
+// Gebäude-Logik
+function checkGebaeude() {
+  var type = document.getElementById("gebaeudetyp").value;
+
+  if (type === "mfh") {
+    document.getElementById("mfhBlock").style.display = "block";
+  } else {
+    document.getElementById("mfhBlock").style.display = "none";
+  }
+}
+
+// Investitionsadresse
+function checkAdresse() {
+  var val = document.getElementById("sameAdresse").value;
+
+  if (val === "nein") {
+    document.getElementById("investAdresse").style.display = "block";
+  } else {
+    document.getElementById("investAdresse").style.display = "none";
+  }
+}
+
+// Abschluss
+function finishForm() {
 
   var vorname = document.getElementById("vorname").value;
   var nachname = document.getElementById("nachname").value;
-  var email = document.getElementById("email").value;
-  var telefon = document.getElementById("telefon").value;
-  var strasse = document.getElementById("strasse").value;
-  var hausnummer = document.getElementById("hausnummer").value;
-  var plz = document.getElementById("plz").value;
-  var ort = document.getElementById("ort").value;
 
-  if (
-    vorname === "" ||
-    nachname === "" ||
-    email === "" ||
-    telefon === "" ||
-    strasse === "" ||
-    hausnummer === "" ||
-    plz === "" ||
-    ort === ""
-  ) {
-    alert("Bitte alle Kundendaten ausfüllen");
-    return;
-  }
-
-  document.getElementById("gebaeudeBlock").style.display = "block";
-}
-
-function finishForm() {
-
-  var gebaeudetyp = document.getElementById("gebaeudetyp").value;
-  var baujahr = document.getElementById("baujahr").value;
-
-  if (gebaeudetyp === "" || baujahr === "") {
-    alert("Bitte Gebäudedaten ausfüllen");
+  if (vorname === "" || nachname === "") {
+    alert("Bitte alle Pflichtfelder ausfüllen");
     return;
   }
 
@@ -213,5 +235,5 @@ function finishForm() {
 </script>
 
 </body>
-
 </html>
+``

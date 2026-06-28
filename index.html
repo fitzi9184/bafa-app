@@ -15,6 +15,10 @@
   #form {
     display: none;
   }
+
+  #adresseBlock {
+    display: none;
+  }
 </style>
 
 </head>
@@ -60,12 +64,47 @@
   Weiter
 </button>
 
+<!-- STEP 3 -->
+<div id="adresseBlock">
+
+<h2>Adresse</h2>
+
+<label>Straße:<br>
+<input type="text" id="strasse">
+</label>
+
+<br><br>
+
+<label>Hausnummer:<br>
+<input type="text" id="hausnummer">
+</label>
+
+<br><br>
+
+<label>PLZ:<br>
+<input type="text" id="plz">
+</label>
+
+<br><br>
+
+<label>Ort:<br>
+<input type="text" id="ort">
+</label>
+
+<br><br>
+
+<button type="button" onclick="nextAdresse()">
+  Weiter
+</button>
+
+</div>
+
 </form>
 
 <!-- SCRIPT -->
 <script>
 
-// Schritt 1 → Formular anzeigen
+// STEP 1 → Formular anzeigen
 function showForm() {
   var value = document.getElementById("massnahme").value;
 
@@ -77,7 +116,7 @@ function showForm() {
   document.getElementById("form").style.display = "block";
 }
 
-// Schritt 2 → Name prüfen
+// STEP 2 → Name prüfen → Adresse anzeigen
 function nextStep() {
   var vorname = document.getElementById("vorname").value;
   var nachname = document.getElementById("nachname").value;
@@ -87,7 +126,22 @@ function nextStep() {
     return;
   }
 
-  alert("Danke " + vorname + " " + nachname + "! Nächster Schritt kommt.");
+  document.getElementById("adresseBlock").style.display = "block";
+}
+
+// STEP 3 → Adresse prüfen
+function nextAdresse() {
+  var strasse = document.getElementById("strasse").value;
+  var hausnummer = document.getElementById("hausnummer").value;
+  var plz = document.getElementById("plz").value;
+  var ort = document.getElementById("ort").value;
+
+  if (strasse === "" || hausnummer === "" || plz === "" || ort === "") {
+    alert("Bitte Adresse vollständig ausfüllen");
+    return;
+  }
+
+  alert("Adresse gespeichert ✅ Nächster Schritt: Gebäudedaten");
 }
 
 </script>

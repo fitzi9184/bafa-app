@@ -1,37 +1,14 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+
 <meta charset="UTF-8">
-<title>Kundendatenerfassung für die Beantragung von Fördermitteln bei der BAFA</title>
+<title>Kundendatenerfassung für BAFA Fördermittel</title>
 
 <style>
   body { font-family: Arial; max-width: 600px; margin: auto; }
   .hidden { display: none; }
 </style>
-
-<script>
-function showForm() {
-  var value = document.getElementById("massnahme").value;
-d
-  document.getElementById("form").classList.remove("hidden");
-
-  // Alle Bereiche verstecken
-  document.getElementById("fenster").classList.add("hidden");
-  document.getElementById("daemmung").classList.add("hidden");
-  document.getElementById("dach").classList.add("hidden");
-
-  // Passenden Bereich anzeigen
-  if (value === "Fenster") {
-    document.getElementById("fenster").classList.remove("hidden");
-  }
-  if (value === "Dämmung") {
-    document.getElementById("daemmung").classList.remove("hidden");
-  }
-  if (value === "Dach") {
-    document.getElementById("dach").classList.remove("hidden");
-  }
-}
-</script>
 
 </head>
 
@@ -39,19 +16,16 @@ d
 
 <h1>BAFA Förderantrag</h1>
 
-<!-- Schritt 1 -->
 <p>
 <label>Welche Maßnahme soll durchgeführt werden?</label><br>
 <select id="massnahme" onchange="showForm()">
   <option value="">Bitte auswählen</option>
-  <option>Fenster</option>
-  <option>Dämmung</option>
-  <option>Dach</option>
-  <option>Sonstiges</option>
+  <option value="Fenster">Fenster</option>
+  <option value="Dämmung">Dämmung</option>
+  <option value="Dach">Dach</option>
 </select>
 </p>
 
-<!-- Formular -->
 <form name="bafa-form" method="POST" data-netlify="true" class="hidden" id="form">
 
 <input type="hidden" name="form-name" value="bafa-form">
@@ -60,92 +34,21 @@ d
 
 <p>
 <label>Name:<br>
-<input type="text" name="name" required>
+<input type="text" name="name">
 </label>
-</p>
-
-<p>
-<label>Email:<br>
-<input type="email" name="email" required>
-</label>
-</p>
-
-<p>
-<label>Telefon:<br>
-<input type="text" name="telefon">
-</label>
-</p>
-
-<p>
-<label>Adresse:<br>
-<input type="text" name="adresse">
-</label>
-</p>
-
-<h2>Gebäude</h2>
-
-<p>
-<label>Gebäudetyp:<br>
-<input type="text" name="gebaeudetyp">
-</label>
-</p>
-
-<p>
-<label>Baujahr:<br>
-<input type="number" name="baujahr">
-</label>
-</p>
-
-<p>
-<label>Anzahl Wohneinheiten:<br>
-<input type="number" name="wohneinheiten">
-</label>
-</p>
-
-<!-- Fenster -->
-<div id="fenster" class="hidden">
-<h2>Fenster</h2>
-
-<p>
-<label>Anzahl Fenster:<br>
-<input type="number" name="fenster_anzahl">
-</label>
-</p>
-
-<p>
-<label>Kosten geschätzt (€):<br>
-<input type="number" name="kosten_fenster">
-</label>
-</p>
-</div>
-
-<!-- Dämmung -->
-<div id="daemmung" class="hidden">
-<h2>Dämmung</h2>
-
-<p>
-<label>Fläche (m²):<br>
-<input type="number" name="flaeche_daemmung">
-</label>
-</p>
-</div>
-
-<!-- Dach -->
-<div id="dach" class="hidden">
-<h2>Dach</h2>
-
-<p>
-<label>Dachfläche (m²):<br>
-<input type="number" name="dachflaeche">
-</label>
-</p>
-</div>
-
-<p>
-<button type="submit">Absenden</button>
 </p>
 
 </form>
+
+<script>
+function showForm() {
+  var value = document.getElementById("massnahme").value;
+
+  if (value !== "") {
+    document.getElementById("form").classList.remove("hidden");
+  }
+}
+</script>
 
 </body>
 </html>

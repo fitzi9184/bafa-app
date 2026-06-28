@@ -34,18 +34,23 @@
 </select>
 
 <br><br>
-
 <button onclick="showForm()">Weiter</button>
-
 </p>
 
+<!-- FORMULAR -->
 <form id="form" onsubmit="return false;">
 
 <h2>Kundendaten</h2>
 
 <label>Name:<br>
-<input type="text">
+<input type="text" id="name">
 </label>
+
+<br><br>
+
+<button type="button" onclick="nextStep()">
+  Weiter
+</button>
 
 </form>
 
@@ -59,6 +64,18 @@ function showForm() {
   }
 
   document.getElementById("form").style.display = "block";
+}
+
+// nächster Schritt nach Name
+function nextStep() {
+  var name = document.getElementById("name").value;
+
+  if (name === "") {
+    alert("Bitte Namen eingeben");
+    return;
+  }
+
+  alert("Danke " + name + "! Nächster Schritt kommt.");
 }
 </script>
 

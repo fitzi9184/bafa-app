@@ -70,7 +70,6 @@
 
 <h1>Kundendatenerfassung für BAFA Fördermittel</h1>
 
-<!-- MAßNAHME -->
 <label><b>Welche Maßnahme soll durchgeführt werden?</b></label>
 <select id="massnahme" onchange="showForm()">
   <option value="">Bitte auswählen</option>
@@ -79,7 +78,6 @@
   <option>Dach und oberste Geschossdecke dämmen</option>
 </select>
 
-<!-- FORMULAR -->
 <form id="form" onsubmit="return false;">
 
 <h2>Kundendaten</h2>
@@ -118,7 +116,6 @@
 <input type="text" id="ort">
 </label>
 
-<!-- INVESTITIONSOBJEKT -->
 <h2>Investitionsobjekt</h2>
 
 <label>Entspricht die Adresse dem Wohnort?</label>
@@ -148,7 +145,6 @@
 
 </div>
 
-<!-- GEBÄUDEDATEN -->
 <h2>Gebäudedaten</h2>
 
 <label>Gebäudetyp:
@@ -165,7 +161,6 @@
 <input type="number" id="baujahr">
 </label>
 
-<!-- nur bei MFH -->
 <div id="mfhBlock">
 
 <label>Anzahl Wohneinheiten:
@@ -179,7 +174,7 @@
 </div>
 
 <button type="button" onclick="finishForm()">
-  Antrag abschließen
+  Antrag absenden
 </button>
 
 </form>
@@ -196,7 +191,7 @@ function showForm() {
   }
 }
 
-// Gebäude-Logik
+// Gebäudeprüfung
 function checkGebaeude() {
   var type = document.getElementById("gebaeudetyp").value;
 
@@ -207,7 +202,7 @@ function checkGebaeude() {
   }
 }
 
-// Investitionsadresse
+// Invest-Adresse anzeigen
 function checkAdresse() {
   var val = document.getElementById("sameAdresse").value;
 
@@ -218,18 +213,50 @@ function checkAdresse() {
   }
 }
 
-// Abschluss
+// FINAL: Daten sammeln + senden vorbereiten
 function finishForm() {
 
-  var vorname = document.getElementById("vorname").value;
-  var nachname = document.getElementById("nachname").value;
+  const data = {
+    massnahme: document.getElementById("massnahme").value,
+    vorname: document.getElementById("vorname").value,
+    nachname: document.getElementById("nachname").value,
+    email: document.getElementById("email").value,
+    telefon: document.getElementById("telefon").value,
 
-  if (vorname === "" || nachname === "") {
-    alert("Bitte alle Pflichtfelder ausfüllen");
-    return;
-  }
+    adresse: {
+      strasse: document.getElementById("strasse").value,
+      hausnummer: document.getElementById("hausnummer").value,
+      plz: document.getElementById("plz").value,
+      ort: document.getElementById("ort").value
+    },
 
-  alert("Ihre Daten wurden DSGVO-konform übermittelt. Ein Mitarbeiter der Energieberatung Braunschweig wird sich bei Ihnen zeitnah melden und die nächsten Schritte besprechen.");
+    investAdresse: {
+      strasse: document.getElementById("i_strasse")?.value || "",
+      hausnummer: document.getElementById("i_hausnummer")?.value || "",
+      plz: document.getElementById("i_plz")?.value || "",
+      ort: document.getElementById("i_ort")?.value || ""
+    },
+
+    gebaeude: {
+      typ: document.getElementById("gebaeudetyp").value,
+      baujahr: document.getElementById("baujahr").value,
+      wohneinheiten: document.getElementById("wohneinheiten")?.value || "",
+      betroffen: document.getElementById("betroffene_wohneinheiten")?.value || ""
+    }
+  };
+
+  console.log("Gesendete Daten:", data);
+
+  fetch("/.netlify/functions/sendMail", {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    alert("Ihre Daten wurden DSGVO-konform übermittelt. Ein Mitarbeiter der Energieberatung Braunschweig wird sich bei Ihnen zeitnah melden und die nächsten Schritte besprechen.");
+  })
+  .catch(() => {
+    alert("Fehler beim Senden der Daten");
+  });
 }
 
 </script>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
 
+<head>
 <meta charset="UTF-8">
 <title>BAFA Antrag – Energieberatung Braunschweig</title>
 
@@ -15,10 +15,6 @@
   .hidden {
     display: none;
   }
-
-  h1 {
-    margin-top: 30px;
-  }
 </style>
 
 </head>
@@ -27,83 +23,40 @@
 
 <h1>Kundendatenerfassung für BAFA Fördermittel</h1>
 
-<!-- Auswahl Maßnahme -->
 <p>
-<label><strong>Welche Maßnahme soll durchgeführt werden?</strong></label><br><br>
-<select id="massnahme" onchange="showForm()">
+<b>Welche Maßnahme soll durchgeführt werden?</b><br><br>
+
+<select id="massnahme">
   <option value="">Bitte auswählen</option>
   <option value="Fenster">Fenster</option>
   <option value="Dämmung">Dämmung</option>
   <option value="Dach">Dach</option>
 </select>
+
+<button onclick="showForm()">Weiter</button>
 </p>
 
-<!-- Formular -->
-<form name="bafa-form" method="POST" data-netlify="true" class="hidden" id="form">
-
-<input type="hidden" name="form-name" value="bafa-form">
+<form id="form" class="hidden">
 
 <h2>Kundendaten</h2>
 
-<p>
 <label>Name:<br>
-<input type="text" name="name" required>
+<input type="text">
 </label>
-</p>
 
-<p>
-<label>E-Mail:<br>
-<input type="email" name="email" required>
-</label>
-</p>
+</form>
 
-<p>
-<label>Telefon:<br>
-<input type="text" name="telefon">
-</label>
-</p>
+<!-- SCRIPT GANZ UNTEN -->
+<script>
+function showForm() {
+  var select = document.getElementById("massnahme");
+  var value = select.value;
 
-<p>
-<label>Adresse:<br>
-<input type="text" name="adresse">
-</label>
-</p>
+  if (value !== "") {
+    document.getElementById("form").style.display = "block";
+  }
+}
+</script>
 
-<h2>Gebäudedaten</h2>
-
-<p>
-<label>Gebäudetyp:<br>
-<input type="text" name="gebaeudetyp">
-</label>
-</p>
-
-<p>
-<label>Baujahr:<br>
-<input type="number" name="baujahr">
-</label>
-</p>
-
-<p>
-<label>Anzahl Wohneinheiten:<br>
-<input type="number" name="wohneinheiten">
-</label>
-</p>
-
-<!-- Fenster -->
-<div id="fenster" class="hidden">
-<h2>Fenster</h2>
-
-<p>
-<label>Anzahl Fenster:<br>
-<input type="number" name="fenster_anzahl">
-</label>
-</p>
-
-<p>
-<label>Geschätzte Kosten (€):<br>
-<input type="number" name="kosten_fenster">
-</label>
-</p>
-</div>
-
-<!-- Dämmung -->
+</body>
+</html>

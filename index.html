@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
 
+<head>
 <meta charset="UTF-8">
-<title>BAFA Antrag – Energieberatung Braunschweig</title>
+<title>BAFA Antrag</title>
 
 <style>
   body {
@@ -12,172 +12,7 @@
     margin: auto;
   }
 
-  .hidden {
-    display: none;
-  }
-
-  h1 {
-    margin-top: 30px;
-  }
-</style>
-
-</head>
-
-<body>
-
-<h1>Kundendatenerfassung für BAFA Fördermittel</h1>
-
-<!-- Auswahl Maßnahme -->
-<p>
-<label><strong>Welche Maßnahme soll durchgeführt werden?</strong></label><br><br>
-<select id="massnahme" onchange="showForm()">
-  <option value="">Bitte auswählen</option>
-  <option value="Fenster">Fenster</option>
-  <option value="Dämmung">Dämmung</option>
-  <option value="Dach">Dach</option>
-</select>
-</p>
-
-<!-- Formular -->
-<form name="bafa-form" method="POST" data-netlify="true" class="hidden" id="form">
-
-<input type="hidden" name="form-name" value="bafa-form">
-
-<h2>Kundendaten</h2>
-
-<p>
-<label>Name:<br>
-<input type="text" name="name" required>
-</label>
-</p>
-
-<p>
-<label>E-Mail:<br>
-<input type="email" name="email" required>
-</label>
-</p>
-
-<p>
-<label>Telefon:<br>
-<input type="text" name="telefon">
-</label>
-</p>
-
-<p>
-<label>Adresse:<br>
-<input type="text" name="adresse">
-</label>
-</p>
-
-<h2>Gebäudedaten</h2>
-
-<p>
-<label>Gebäudetyp:<br>
-<input type="text" name="gebaeudetyp">
-</label>
-</p>
-
-<p>
-<label>Baujahr:<br>
-<input type="number" name="baujahr">
-</label>
-</p>
-
-<p>
-<label>Anzahl Wohneinheiten:<br>
-<input type="number" name="wohneinheiten">
-</label>
-</p>
-
-<!-- Fenster -->
-<div id="fenster" class="hidden">
-<h2>Fenster</h2>
-
-<p>
-<label>Anzahl Fenster:<br>
-<input type="number" name="fenster_anzahl">
-</label>
-</p>
-
-<p>
-<label>Geschätzte Kosten (€):<br>
-<input type="number" name="kosten_fenster">
-</label>
-</p>
-</div>
-
-<!-- Dämmung -->
-<div id="daemmung" class="hidden">
-<h2>Dämmung</h2>
-
-<p>
-<label>Fläche (m²):<br>
-<input type="number" name="flaeche_daemmung">
-</label>
-</p>
-</div>
-
-<!-- Dach -->
-<div id="dach" class="hidden">
-<h2>Dach</h2>
-
-<p>
-<label>Dachfläche (m²):<br>
-<input type="number" name="dachflaeche">
-</label>
-</p>
-</div>
-
-<p>
-<br>
-<button type="submit">Absenden</button>
-</p>
-
-</form>
-
-<!-- SCRIPT GANZ UNTEN -->
-<script>
-function showForm() {
-  var value = document.getElementById("massnahme").value;
-
-  // Formular anzeigen
-  if (value !== "") {
-    document.getElementById("form").classList.remove("hidden");
-  }
-
-  // Alles erstmal ausblenden
-  document.getElementById("fenster").classList.add("hidden");
-  document.getElementById("daemmung").classList.add("hidden");
-  document.getElementById("dach").Perfekt 👍 – ich gebe dir jetzt eine **saubere, funktionierende Komplettversion**, angepasst auf dein Ziel:
-
-✅ klare Überschrift  
-✅ Maßnahme-Auswahl zuerst  
-✅ Formular erscheint danach  
-✅ einfache Struktur (wie in deiner PDF)  
-✅ ohne unnötigen Ballast  
-
----
-
-# ✅ ✅ KOMPLETTER FUNKTIONIERENDER CODE
-
-👉 **Alles ersetzen durch diesen Code:**
-
-```html
-<!DOCTYPE html>
-<html lang="de">
-<head>
-
-<meta charset="UTF-8">
-<title>BAFA Antrag – Energieberatung Braunschweig</title>
-
-<style>
-  body {
-    font-family: Arial;
-    max-width: 600px;
-    margin: auto;
-  }
-
-  .hidden {
+  #form {
     display: none;
   }
 </style>
@@ -188,143 +23,42 @@ function showForm() {
 
 <h1>Kundendatenerfassung für BAFA Fördermittel</h1>
 
-<!-- Auswahl der Maßnahme -->
 <p>
-<label><b>Welche Maßnahme soll durchgeführt werden?</b></label><br>
-<select id="massnahme" onchange="showForm()">
+<b>Welche Maßnahme soll durchgeführt werden?</b><br><br>
+
+<select id="massnahme">
   <option value="">Bitte auswählen</option>
   <option value="Fenster">Fenster</option>
   <option value="Dämmung">Dämmung</option>
   <option value="Dach">Dach</option>
-  <option value="Sonstiges">Sonstiges</option>
 </select>
+
+<br><br>
+
+<button onclick="showForm()">Weiter</button>
+
 </p>
 
-<!-- Formular -->
-<form name="bafa-form" method="POST" data-netlify="true" id="form" class="hidden">
-
-<input type="hidden" name="form-name" value="bafa-form">
+<form id="form" onsubmit="return false;">
 
 <h2>Kundendaten</h2>
 
-<p>
 <label>Name:<br>
-<input type="text" name="name" required>
+<input type="text">
 </label>
-</p>
-
-<p>
-<label>Email:<br>
-<input type="email" name="email" required>
-</label>
-</p>
-
-<p>
-<label>Telefon:<br>
-<input type="text" name="telefon">
-</label>
-</p>
-
-<p>
-<label>Adresse:<br>
-<input type="text" name="adresse">
-</label>
-</p>
-
-<h2>Gebäude</h2>
-
-<p>
-<label>Gebäudetyp:<br>
-<input type="text" name="gebaeudetyp">
-</label>
-</p>
-
-<p>
-<label>Baujahr:<br>
-<input type="number" name="baujahr">
-</label>
-</p>
-
-<p>
-<label>Anzahl Wohneinheiten:<br>
-<input type="number" name="wohneinheiten">
-</label>
-</p>
-
-<!-- Bereich Fenster -->
-<div id="fenster" class="hidden">
-<h2>Fenster</h2>
-
-<p>
-<label>Anzahl Fenster:<br>
-<input type="number" name="fenster_anzahl">
-</label>
-</p>
-
-<p>
-<label>Geschätzte Kosten (€):<br>
-<input type="number" name="kosten_fenster">
-</label>
-</p>
-
-</div>
-
-<!-- Bereich Dämmung -->
-<div id="daemmung" class="hidden">
-<h2>Dämmung</h2>
-
-<p>
-<label>Fläche (m²):<br>
-<input type="number" name="daemmung_flaeche">
-</label>
-</p>
-
-</div>
-
-<!-- Bereich Dach -->
-<div id="dach" class="hidden">
-<h2>Dach</h2>
-
-<p>
-<label>Dachfläche (m²):<br>
-<input type="number" name="dach_flaeche">
-</label>
-</p>
-
-</div>
-
-<br>
-<button type="submit">Absenden</button>
 
 </form>
 
-<!-- SCRIPT GANZ UNTEN -->
 <script>
 function showForm() {
   var value = document.getElementById("massnahme").value;
 
-  // Formular anzeigen
-  if (value !== "") {
-    document.getElementById("form").classList.remove("hidden");
+  if (value === "") {
+    alert("Bitte zuerst eine Maßnahme auswählen");
+    return;
   }
 
-  // Alle Bereiche verstecken
-  document.getElementById("fenster").classList.add("hidden");
-  document.getElementById("daemmung").classList.add("hidden");
-  document.getElementById("dach").classList.add("hidden");
-
-  // passenden Bereich anzeigen
-  if (value === "Fenster") {
-    document.getElementById("fenster").classList.remove("hidden");
-  }
-
-  if (value === "Dämmung") {
-    document.getElementById("daemmung").classList.remove("hidden");
-  }
-
-  if (value === "Dach") {
-    document.getElementById("dach").classList.remove("hidden");
-  }
+  document.getElementById("form").style.display = "block";
 }
 </script>
 

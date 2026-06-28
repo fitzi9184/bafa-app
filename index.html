@@ -146,7 +146,7 @@
 <input type="number" id="wohneinheiten">
 </label>
 
-<label>Betroffene Wohneinheiten:
+<label>von der Sanierung betroffene Wohneinheiten:
 <input type="number" id="betroffene_wohneinheiten">
 </label>
 
@@ -161,7 +161,6 @@
 <!-- SCRIPT -->
 <script>
 
-// Formular anzeigen
 function showForm() {
   var value = document.getElementById("massnahme").value;
 
@@ -170,7 +169,6 @@ function showForm() {
   }
 }
 
-// Schritt 2 → prüfen → Gebäudedaten anzeigen
 function nextStep() {
 
   var vorname = document.getElementById("vorname").value;
@@ -199,7 +197,6 @@ function nextStep() {
   document.getElementById("gebaeudeBlock").style.display = "block";
 }
 
-// Abschluss
 function finishForm() {
 
   var gebaeudetyp = document.getElementById("gebaeudetyp").value;
@@ -210,7 +207,7 @@ function finishForm() {
     return;
   }
 
-  alert("✅ Antrag vollständig! Daten bereit zur Weiterverarbeitung.");
+  alert("Ihre Daten wurden DSGVO-konform übermittelt. Ein Mitarbeiter der Energieberatung Braunschweig wird sich bei Ihnen zeitnah melden und die nächsten Schritte besprechen.");
 }
 
 </script>
